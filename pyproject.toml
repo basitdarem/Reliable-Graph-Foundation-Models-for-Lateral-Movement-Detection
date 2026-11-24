@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lmsafe"
+version = "0.1.0"
+description = "Safe continual updating of lateral-movement detectors under benign drift and update poisoning"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Ragab Mahmoud" },
+]
+requires-python = ">=3.10"
+keywords = [
+    "lateral-movement-detection",
+    "graph-foundation-models",
+    "concept-drift",
+    "intrusion-detection",
+    "continual-learning",
+    "data-poisoning",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Security",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "torch",
+    "pyyaml",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Repository = "https://github.com/ragabmmm9/lmsafe"
+
+[tool.setuptools.packages.find]
+include = ["lmsafe*"]

@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "lmsafe: Safe Continual Updating for Lateral-Movement Detection"
+type: software
+authors:
+  - family-names: Mahmoud
+    given-names: Ragab
+license: MIT
+preferred-citation:
+  type: unpublished
+  title: >-
+    Reliable Graph Foundation Models for Lateral Movement Detection:
+    Cross-Network Transfer under Drift and Contaminated Baselines
+  authors:
+    - family-names: Mahmoud
+      given-names: Ragab
+  notes: Manuscript submitted for publication; update this entry once published.

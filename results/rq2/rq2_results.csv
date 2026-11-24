@@ -1,0 +1,11 @@
+variant,policy,hop_score,hop_rank_frac,hop_in_budget
+clean,frozen,7.655864017616056,0.0,True
+clean,periodic,7.247792581767846,0.0,True
+clean,sliding_replay,9.228474942171665,0.0,True
+clean,drift_triggered,9.233373071086755,0.0,True
+clean,gated,10.276326157817198,0.0,True
+conditioned,frozen,7.655864017616056,0.0,True
+conditioned,periodic,5.306143802797501,0.24,True
+conditioned,sliding_replay,5.863925019569064,0.24,True
+conditioned,drift_triggered,6.187872925033591,0.24,True
+conditioned,gated,10.278115374824123,0.0,True

@@ -1,0 +1,57 @@
+# Real LANL data, full 58-day release -- for final paper numbers,
+# directly comparable to the LMDEval fair-evaluation protocol this
+# project's preprocessing follows. Reads the complete 7.2 GB auth
+# stream (still never downloaded to disk -- see
+# lmsafe/data/lanl_stream.py); budget plenty of wall-clock time for
+# this on Colab, and set `cache_path` so you only pay that cost once.
+#
+# Before running: export LMSAFE_LANL_BASE_URL='<signed link from
+# https://csr.lanl.gov/data/cyber1/>'.
+source: lanl
+scenario_label: lanl_full_58d
+
+detector:
+  name: count_baseline
+  kwargs:
+    alpha: 0.5
+
+policies:
+  - name: frozen
+    kwargs: {}
+  - name: periodic
+    kwargs:
+      period: 24
+  - name: sliding_replay
+    kwargs:
+      window_size: 168
+      retrain_period: 24
+  - name: drift_triggered
+    kwargs:
+      drift_detector_name: page_hinkley
+      drift_detector_kwargs:
+        delta: 0.01
+        threshold: 8.0
+      lookback: 168
+  - name: gated
+    kwargs:
+      score_admission_quantile: 0.9
+      quarantine_windows: 24
+      min_corroborating_src_hosts: 3
+      retrain_period: 24
+
+budgets: [1, 5, 10, 20, 50]
+
+output:
+  dir: results/lanl_full
+  csv: results.csv
+
+lanl:
+  end_s: 5011200          # LANL_FULL_CUTOFF_S, 58 days
+  train_cutoff_s: 147600  # LANL_TRAIN_CUTOFF_S, 41 hours
+  only_remote_logon: true
+  filter_ntlm_only: false
+  cache_path: lmsafe_cache/lanl_full_windows.pkl
+  checkpoint_every: 24     # partial checkpoint every 24 test windows (~1 sim. day) --
+                           # this is the run most likely to be interrupted
+                           # (hours of wall time), so a crash-safe cache
+                           # matters most here

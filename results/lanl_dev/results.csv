@@ -1,0 +1,6 @@
+detector,policy,scenario,weighted_auc,weighted_ap,episode_hit_rate,mean_delay_windows,delay_ci_lo,delay_ci_hi,n_episodes
+count_baseline,frozen,lanl_dev_30d,0.894323,0.000023,0.10,1.500000,1.000000,2.0,20
+count_baseline,periodic,lanl_dev_30d,0.939024,0.000050,0.10,5.000000,2.000000,8.0,20
+count_baseline,sliding_replay,lanl_dev_30d,0.980723,0.000189,0.15,3.666667,0.000000,9.0,20
+count_baseline,drift_triggered,lanl_dev_30d,0.967772,0.000106,0.15,3.000000,2.158333,4.0,20
+count_baseline,gated,lanl_dev_30d,0.949400,0.000055,0.10,6.500000,2.000000,11.0,20

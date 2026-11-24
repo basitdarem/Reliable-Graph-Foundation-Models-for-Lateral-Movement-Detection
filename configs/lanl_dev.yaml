@@ -1,0 +1,57 @@
+# Real LANL data, development cutoff (30 days).
+#
+# This project's own inspection of the public redteam.txt.gz (done
+# 2026-11-13) found all 749 labeled red-team events before day 29.6 and
+# none after day 30 -- so a 30-day cut already contains every known
+# attack while reading roughly half of the 7.2 GB auth stream. Use
+# lanl_full.yaml for the final paper numbers, which read the full
+# 58-day release to match the LMDEval fair-evaluation protocol exactly.
+#
+# Before running: export LMSAFE_LANL_BASE_URL='<signed link from
+# https://csr.lanl.gov/data/cyber1/>' -- see lmsafe/data/lanl_stream.py.
+# The link is read at run time and is never written to this file.
+source: lanl
+scenario_label: lanl_dev_30d
+
+detector:
+  name: count_baseline
+  kwargs:
+    alpha: 0.5
+
+policies:
+  - name: frozen
+    kwargs: {}
+  - name: periodic
+    kwargs:
+      period: 24
+  - name: sliding_replay
+    kwargs:
+      window_size: 168
+      retrain_period: 24
+  - name: drift_triggered
+    kwargs:
+      drift_detector_name: page_hinkley
+      drift_detector_kwargs:
+        delta: 0.01
+        threshold: 8.0
+      lookback: 168
+  - name: gated
+    kwargs:
+      score_admission_quantile: 0.9
+      quarantine_windows: 24
+      min_corroborating_src_hosts: 3
+      retrain_period: 24
+
+budgets: [1, 5, 10, 20, 50]
+
+output:
+  dir: results/lanl_dev
+  csv: results.csv
+
+lanl:
+  end_s: 2592000          # LANL_DEV_CUTOFF_S, 30 days
+  train_cutoff_s: 147600  # LANL_TRAIN_CUTOFF_S, 41 hours
+  only_remote_logon: true
+  filter_ntlm_only: false
+  cache_path: lmsafe_cache/lanl_dev_windows.pkl
+  checkpoint_every: 24     # partial checkpoint every 24 test windows (~1 sim. day)

@@ -1,0 +1,51 @@
+# Quick synthetic smoke test -- runs in seconds, no network access.
+# Use this to sanity-check the whole pipeline (or a code change to it)
+# before pointing scripts/run_experiment.py at the real LANL data.
+source: synthetic
+scenario_label: synthetic_quick
+
+detector:
+  name: count_baseline
+  kwargs:
+    alpha: 0.5
+
+policies:
+  - name: frozen
+    kwargs: {}
+  - name: periodic
+    kwargs:
+      period: 24
+  - name: sliding_replay
+    kwargs:
+      window_size: 168
+      retrain_period: 24
+  - name: drift_triggered
+    kwargs:
+      drift_detector_name: page_hinkley
+      drift_detector_kwargs:
+        delta: 0.01
+        threshold: 8.0
+      lookback: 168
+  - name: gated
+    kwargs:
+      score_admission_quantile: 0.9
+      quarantine_windows: 24
+      min_corroborating_src_hosts: 3
+      retrain_period: 24
+
+budgets: [1, 5, 10, 20]
+
+output:
+  dir: results/synthetic_quick
+  csv: results.csv
+
+synth:
+  n_users: 30
+  n_hosts: 20
+  n_benign_days: 15
+  base_edges_per_window: 20
+  n_episodes: 4
+  episode_chain_len: 4
+  drift_start_day: 6
+  drift_strength: 0.3
+  seed: 1
