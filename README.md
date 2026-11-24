@@ -172,15 +172,4 @@ third-party attribution and dataset citations. No LANL or OpTC raw data
 is redistributed by this repository beyond the two small fixtures under
 `tests/fixtures/` used for unit testing.
 
-## Citing this work
 
-This code accompanies the paper:
-
-> Ragab Mahmoud, "Reliable Graph Foundation Models for Lateral Movement
-> Detection: Cross-Network Transfer under Drift and Contaminated
-> Baselines" (submitted).
-
-A full BibTeX entry will be added here once the paper is published;
-until then, please cite this repository directly (see the "Cite this
-repository" link GitHub generates from `CITATION.cff`, or link to the
-repository URL).
